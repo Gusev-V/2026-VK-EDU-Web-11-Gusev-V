@@ -15,17 +15,19 @@
     <header>
         <nav class="menu">
             <div class="left">
-                <h1><a href="#">AskPupkin</a></h1>
+                <h1><a href="./index.html">AskPupkin</a></h1>
             </div>
 
             <div class="center">
                 <input type="text" placeholder="Search">
-                <a class="header_ask" href="#">ASK!</a>
+                <a class="header_ask" href="./ask.html">ASK!</a>
             </div>
 
             <div class="right">
+                <img src="./static/img/user-icon.svg">
+                <span>Dr. Pepper</span>
+                <a href="#">settings</a>
                 <a href="./login.html">log out</a>
-                <a href="./reg.html">register</a>
             </div>
         </nav>
     </header>
@@ -35,26 +37,29 @@
 
         <div class="content">
             <div class="content_header">
-                <h2>Log In</h2>
-
+                <h2>Settings: Dr. Pepper</h2>
             </div>
 
-            <!-- <p class="error">Sorry, wrong password!</p> -->
-
-             <form name="login">
+            <form name="new_question">
                 <label>Login</label>
-                <input class="form_input" id="login_input" type="text" name="username" autocomplete="username" placeholder="Enter your login here">
+                <input class="form_input" id="login_input" type="text" value="dr_pepper">
 
-                <label>Password</label>
-                <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password" placeholder="Enter your password here">
+                <label>Email</label>
+                <input class="form_input" id="email_input" type="email" value="dr.pepper@mail.ru">
+
+                <label>Nickname</label>
+                <input class="form_input" id="nickname_input" type="text" value="Dr Pepper">
+
+                <label>Upload avatar</label>
+                <input class="form_input" id="avatar" type="file" accept="image/png, image/jpeg, image/svg">
+
+                <div></div>
+                <img src="./static/img/user-icon.svg">
                 
                 <div></div>
-                <button class="form_button" id="login">Log in!</button>
+                <button class="form_button" id="save">Save</button>
+            </form>
 
-                <div></div>
-                <a href="./reg.html">create new account</a>
-             </form>
-        </div>
         </div>
 
         <aside class="sidebar">

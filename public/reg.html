@@ -17,15 +17,15 @@
             <div class="left">
                 <h1><a href="#">AskPupkin</a></h1>
             </div>
-
+            
             <div class="center">
                 <input type="text" placeholder="Search">
                 <a class="header_ask" href="#">ASK!</a>
             </div>
 
             <div class="right">
-                <a href="./login.html">log out</a>
-                <a href="./reg.html">register</a>
+                <a href="#">settings</a>
+                <a href="./login.html">log in</a>
             </div>
         </nav>
     </header>
@@ -35,26 +35,35 @@
 
         <div class="content">
             <div class="content_header">
-                <h2>Log In</h2>
-
+                <h2>Registration</h2>
             </div>
+            
+            <!-- <p class="error">Sorry, this email address allready registrated!</p> -->
 
-            <!-- <p class="error">Sorry, wrong password!</p> -->
-
-             <form name="login">
+             <form name="registration">
                 <label>Login</label>
-                <input class="form_input" id="login_input" type="text" name="username" autocomplete="username" placeholder="Enter your login here">
+                <input class="form_input" id="registration_input" type="text" placeholder="Enter your login here">
+
+                <label>Email</label>
+                <input class="form_input" id="email_input" name="email" type="email" autocomplete="email" placeholder="Enter your email here">
+
+                <label>Nickname</label>
+                <input class="form_input" id="nickname_input" type="text" placeholder="Enter your NicknName">
 
                 <label>Password</label>
                 <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password" placeholder="Enter your password here">
-                
-                <div></div>
-                <button class="form_button" id="login">Log in!</button>
+
+                <label>Repeat Password</label>
+                <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password" placeholder="Repeat your password here">
+
+                <label>Upload avatar</label>
+                <input class="form_input" id="avatar" type="file" accept="image/png, image/jpeg, image/svg">
 
                 <div></div>
-                <a href="./reg.html">create new account</a>
+                <button class="form_button" id="registration">Registrater!</button>
+
              </form>
-        </div>
+
         </div>
 
         <aside class="sidebar">

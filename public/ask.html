@@ -1,1 +1,110 @@
+<!doctype html>
+<html lang="en">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AskPupkin</title>
+    <link rel="stylesheet" href="./static/css/styles.css">
+    <link rel="icon" href="./static/img/favicon.ico">
 
+  </head>
+
+  <body>
+    
+    <header>
+        <nav class="menu">
+            <div class="left">
+                <h1><a href="./index.html">AskPupkin</a></h1>
+            </div>
+
+            <div class="center">
+                <input type="text" placeholder="Search">
+                <a class="header_ask" href="#">ASK!</a>
+            </div>
+
+            <div class="right">
+                <img src="./static/img/user-icon.svg">
+                <span>Dr. Pepper</span>
+                <a href="./setting.html">settings</a>
+                <a href="./login.html">log out</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <div class="content">
+            <div class="content_header">
+                <h2>New Question</h2>
+            </div>
+
+            <form name="new_question">
+                <label>Title</label>
+                <input class="from_input" id="question_title_input" type="text" placeholder="Enter title here">
+
+                <label>Text</label>
+                <textarea class="from_text_input" id="question_text_input" placeholder="Enter text here"></textarea>
+
+                <label>Tags</label>
+                <input class="from_input" id="question_tags_input" type="text" placeholder="Enter tags here">
+
+                <div></div>
+                <button class="form_button" id="ask">ASK!</button>
+            </form>
+        </div>
+
+        <aside class="sidebar">
+            <section class="tags">
+                <h2>Popular Tags</h2>
+                <ul class="TagsList">
+                    <li id="perl">
+                        <a href="#">perl</a>
+                    </li>
+                    <li id="python">
+                        <a href="#">python</a>
+                    </li>
+                    <li id="MySQL">
+                        <a href="#">MySQL</a>
+                    </li>
+                    <li id="django">
+                        <a href="#">django</a>
+                    </li>
+                    <li id="Mail.ru">
+                        <a href="#">Mail.ru</a>
+                    </li>
+                    <li id="Voloshin">
+                        <a href="#">Voloshin</a>
+                    </li>
+                    <li id="Firefox">
+                        <a href="#">Firefox</a>
+                    </li>                    
+                </ul>
+            </section>
+
+            <section class="members">
+               <h2>Best Members</h2>
+                <ul class="MembersList">
+                    <li id="Mr.Freeman">
+                        <a href="#">Mr.Freeman</a>
+                    </li>
+                    <li id="Dr.House">
+                        <a href="#">Dr.House</a>
+                    </li>
+                    <li id="Bender">
+                        <a href="#">Bender</a>
+                    </li>
+                    <li id="Queen_Victoria">
+                        <a href="#">Queen Victoria</a>
+                    </li>
+                    <li id="V.Pupkin">
+                        <a href="#">V.Pupkin</a>
+                    </li>               
+                </ul>
+            </section>
+        </aside>
+        
+    </main>
+  </body>
+</html>
