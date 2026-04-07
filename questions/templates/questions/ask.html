@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AskPupkin - New Question{% endblock %}
+
+{% block content %}
+<div class="content_header">
+    <h2>New Question</h2>
+</div>
+
+<p class="error">The title can't be empty!</p>
+
+<form name="new_question">
+    <label>Title</label>
+    <input class="from_input" id="question_title_input" type="text" placeholder="Enter title here">
+
+    <label>Text</label>
+    <textarea class="from_text_input" id="question_text_input" placeholder="Enter text here"></textarea>
+
+    <label>Tags</label>
+    <input class="from_input" id="question_tags_input" type="text" placeholder="Enter tags here">
+
+    <div></div>
+    <button type="button" class="btn btn-outline-primary">ASK!</button>
+</form>
+{% endblock %}

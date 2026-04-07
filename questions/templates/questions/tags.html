@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AskPupkin bender{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="content_header">
+        <h2>Tag: bender</h2>
+    </div>
+
+    {% for question in page_obj %}
+    <article class="question mb-4 p-3 border rounded">
+        <div class="row align-items-start">
+
+            <div class="col-auto d-flex flex-column align-items-center me-3">
+                <img src="{% static question.avatar %}" class="img-fluid mb-2" alt="User Icon"
+                     style="width:50px; height:50px;">
+                <input type="number" class="form-control form-control-sm text-center"
+                       value="{{ question.votes }}" min="0" max="10" step="1"
+                       style="width:60px;">
+            </div>
+
+            <div class="col">
+                <a href="{% url 'question' question.id %}" class="h5 d-block mb-2 text-decoration-none">
+                    {{ question.title }}
+                </a>
+                <p class="mb-2">{{ question.text }}</p>
+
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <a href="#" class="btn btn-link p-0">answer ({{ question.answers_count }})</a>
+                    <span class="me-2">Tags:</span>
+                    <ul class="list-inline mb-0">
+                        {% for tag in question.tags %}
+                        <li class="list-inline-item">
+                            <a href="{% url 'tags' tag %}" class="btn btn-link p-0">{{ tag }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </article>
+    {% endfor %}
+
+    <div class="PagesNav">
+        <ul class="PagesList">
+            {% if page_obj.number > 3 %}
+                <li>
+                    <a href="?page=1">
+                        <button type="button" class="btn btn-light">1</button>
+                    </a>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-light" id="any_pages">...</button>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if num >= page_obj.number|add:-1 and num <= page_obj.number|add:1 %}
+                    <li>
+                        <a href="?page={{ num }}">
+                            <button type="button"
+                                    class="btn btn-light {% if num == page_obj.number %}active{% endif %}">
+                                {{ num }}
+                            </button>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.number < page_obj.paginator.num_pages|add:-1 %}
+                <li>
+                    <button type="button" class="btn btn-light" id="any_pages">...</button>
+                </li>
+                <li>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">
+                        <button type="button" class="btn btn-light">
+                            {{ page_obj.paginator.num_pages }}
+                        </button>
+                    </a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+</div>
+{% endblock %}
