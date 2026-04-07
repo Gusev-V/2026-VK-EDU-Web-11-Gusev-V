@@ -11,7 +11,7 @@
         <link rel="icon" href="./static/img/favicon.ico">
     </head>
 
-    <body>
+    <body class="d-flex flex-column min-vh-100">
 
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,12 +28,13 @@
 
                         <form class="d-flex mx-auto my-2 my-lg-0">
                             <input class="form-control me-2" type="search" placeholder="Search">
-                            <button class="btn btn-success">ASK!</button>
+                            <a href="./ask.html" class="btn btn-success">ASK!</a>
                         </form>
 
                         <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
                             <img src="./static/img/user-icon.svg" width="30">
                             <span>Dr. Pepper</span>
+                            
                             <a href="./setting.html" class="btn btn-outline-secondary btn-sm">Settings</a>
                             <a href="./login.html" class="btn btn-outline-danger btn-sm">Log out</a>
                         </div>
@@ -53,12 +54,15 @@
                         <h2>Settings: Dr. Pepper</h2>
                     </div>
 
+                    <p class="error">Sorry, this email address invalid!</p>
+
+
                     <form name="new_question">
                         <label>Login</label>
                         <input class="form_input" id="login_input" type="text" value="dr_pepper">
 
                         <label>Email</label>
-                        <input class="form_input" id="email_input" type="email" value="dr.pepper@mail.ru">
+                        <input class="form_input" id="email_input" type="email" value="dr.pepper+--=/\@mail.ru">
 
                         <label>Nickname</label>
                         <input class="form_input" id="nickname_input" type="text" value="Dr Pepper">
@@ -104,7 +108,7 @@
             </div>
         </div>
 
-        <footer class="text-center mt-4 p-3 bg-light">AskPupkin 2026</footer>
+        <footer class="text-center mt-auto p-3 bg-light">AskPupkin 2026</footer>
 
         <script src="./static/js/bootstrap.bundle.min.js"></script>
     </body>
