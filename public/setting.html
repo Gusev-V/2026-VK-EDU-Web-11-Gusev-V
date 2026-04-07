@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AskPupkin New Question</title>
+        <title>AskPupkin Settings</title>
 
         <link rel="stylesheet" href="./static/css/bootstrap.min.css">
         <link rel="stylesheet" href="./static/css/styles.css">
@@ -34,6 +34,7 @@
                         <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
                             <img src="./static/img/user-icon.svg" width="30">
                             <span>Dr. Pepper</span>
+                            
                             <a href="./setting.html" class="btn btn-outline-secondary btn-sm">Settings</a>
                             <a href="./login.html" class="btn btn-outline-danger btn-sm">Log out</a>
                         </div>
@@ -50,23 +51,30 @@
 
                 <main class="col-lg-8 col-md-12">
                     <div class="content_header">
-                        <h2>New Question</h2>
+                        <h2>Settings: Dr. Pepper</h2>
                     </div>
 
-                    <p class="error">The title can't be empty!</p>
+                    <p class="error">Sorry, this email address invalid!</p>
+
 
                     <form name="new_question">
-                        <label>Title</label>
-                        <input class="from_input" id="question_title_input" type="text" placeholder="Enter title here">
+                        <label>Login</label>
+                        <input class="form_input" id="login_input" type="text" value="dr_pepper">
 
-                        <label>Text</label>
-                        <textarea class="from_text_input" id="question_text_input" placeholder="Enter text here"></textarea>
+                        <label>Email</label>
+                        <input class="form_input" id="email_input" type="email" value="dr.pepper+--=/\@mail.ru">
 
-                        <label>Tags</label>
-                        <input class="from_input" id="question_tags_input" type="text" placeholder="Enter tags here">
+                        <label>Nickname</label>
+                        <input class="form_input" id="nickname_input" type="text" value="Dr Pepper">
+
+                        <label>Upload avatar</label>
+                        <input class="form_input" id="avatar" type="file" accept="image/png, image/jpeg, image/svg">
 
                         <div></div>
-                        <button type="button" class="btn btn-outline-primary">ASK!</button>
+                        <img src="./static/img/user-icon.svg">
+                        
+                        <div></div>
+                        <button type="button" class="btn btn-outline-primary">Save</button>
                     </form>
                 </main>
 
