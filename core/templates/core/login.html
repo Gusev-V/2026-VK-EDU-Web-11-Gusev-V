@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AskPupkin login{% endblock %}
+{% block content %}
+<div class="content_header">
+    <h2>Log In</h2>
+</div>
+
+<p class="error">Sorry, wrong password!</p>
+
+<form name="login">
+    <label>Login</label>
+    <input class="form_input" id="login_input" type="text" name="username" autocomplete="username"
+           placeholder="Enter your login here">
+
+    <label>Password</label>
+    <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password"
+           placeholder="Enter your password here">
+
+    <div></div>
+    <button type="button" class="btn btn-outline-primary">Log in!</button>
+
+    <div></div>
+    <a href="{% url 'registration' %}">create new account</a>
+</form>
+{% endblock %}

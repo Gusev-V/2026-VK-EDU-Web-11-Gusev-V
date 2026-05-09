@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AskPupkin registration{% endblock %}
+{% block content %}
+<div class="content_header">
+    <h2>Registration</h2>
+</div>
+
+<p class="error">Sorry, this email address allready registrated!</p>
+
+<form name="registration">
+    <label>Login</label>
+    <input class="form_input" id="registration_input" type="text" placeholder="Enter your login here">
+
+    <label>Email</label>
+    <input class="form_input" id="email_input" name="email" type="email" autocomplete="email"
+           placeholder="Enter your email here">
+
+    <label>Nickname</label>
+    <input class="form_input" id="nickname_input" type="text" placeholder="Enter your NicknName">
+
+    <label>Password</label>
+    <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password"
+           placeholder="Enter your password here">
+
+    <label>Repeat Password</label>
+    <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password"
+           placeholder="Repeat your password here">
+
+    <label>Upload avatar</label>
+    <input class="form_input" id="avatar" type="file" accept="image/png, image/jpeg, image/svg">
+
+    <div></div>
+    <button type="button" class="btn btn-outline-primary">Registrater!</button>
+</form>
+{% endblock %}

@@ -14,3 +14,10 @@ __pycache__/
 
 # Databases
 *.sqlite3
+
+# Django
+db.sqlite3
+*.sqlite3
+media/
+static/
+.env
