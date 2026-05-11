@@ -7,23 +7,24 @@
     <div class="row align-items-start">
 
         <div class="col-auto d-flex flex-column align-items-center me-3">
-            <img src="{% static question.avatar %}" class="img-fluid mb-2" alt="User Icon"
+            <img src="{% static question.author.profile.avatar %}" class="img-fluid mb-2" alt="User Icon"
                  style="width:50px; height:50px;">
-            <input type="number" class="form-control form-control-sm text-center"
-                   value="{{ question.votes }}" min="0" max="10" step="1"
-                   style="width:60px;">
+            <div class="text-center">
+                <button class="btn btn-sm btn-outline-success border-0 p-0 mb-1">👍</button>
+                <span class="fw-bold d-block">{{ question_likes }}</span>
+            </div>
         </div>
 
         <div class="col">
             <h2 class="mb-2">{{ question.title }}</h2>
-            <p class="mb-2">{{ question.text }}</p>
+            <p class="mb-2">{{ question.content }}</p>
 
             <div class="d-flex flex-wrap align-items-center gap-2">
                 <span class="me-2">Tags:</span>
                 <ul class="list-inline mb-0">
-                    {% for tag in question.tags %}
+                    {% for tag in question.tags.all %}
                     <li class="list-inline-item">
-                        <a href="{% url 'tags' tag %}" class="btn btn-link p-0">{{ tag }}</a>
+                        <a href="{% url 'tags' tag.name %}" class="btn btn-link p-0">{{ tag.name }}</a>
                     </li>
                     {% endfor %}
                 </ul>
@@ -40,16 +41,16 @@
     <div class="row align-items-start">
 
         <div class="col-auto d-flex flex-column align-items-center me-3">
-            <img src="{% static answer.avatar %}" class="img-fluid mb-2" alt="User Icon"
+            <img src="{% static answer.author.profile.avatar %}" class="img-fluid mb-2" alt="User Icon"
                  style="width:50px; height:50px;">
-            <input type="number" class="form-control form-control-sm text-center"
-                   value="{{ answer.votes }}" min="0" max="10" step="1"
-                   style="width:60px;">
+            <div class="text-center">
+                <button class="btn btn-sm btn-outline-success border-0 p-0 mb-1">👍</button>
+                <span class="fw-bold d-block">{{ answer.ans_likes }}</span>
+            </div>
         </div>
 
         <div class="col">
-            <h3 class="mb-2">{{ answer.title }}</h3>
-            <p class="mb-2">{{ answer.text }}</p>
+            <p class="mb-2">{{ answer.content }}</p>
 
             <div class="d-flex flex-wrap align-items-center gap-2">
                 <div class="form-check">
@@ -64,8 +65,13 @@
 
     </div>
 </article>
+{% empty %}
+    <div class="text-center py-5">
+        <p class="text-muted">{{ empty_message }}</p>
+    </div>
 {% endfor %}
 
+{% if page_obj %}
 <div class="PagesNav">
     <ul class="PagesList">
         {% if page_obj.number > 3 %}
@@ -107,6 +113,7 @@
 
     </ul>
 </div>
+{% endif %}
 
 <div class="black_line"></div>
 

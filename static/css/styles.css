@@ -114,6 +114,19 @@ footer {
     margin-top: 50px;
 }
 
+.likes-block {
+    min-width: 60px;
+}
+
+.likes-block button:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+}
+
+.likes-block button:active {
+    transform: scale(0.9);
+}
+
 @media (max-width: 768px) {   
     form {
         grid-template-columns: 1fr;
