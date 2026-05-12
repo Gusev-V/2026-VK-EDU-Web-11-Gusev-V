@@ -48,6 +48,7 @@
         </div>
     {% endfor %}
 
+    {% if page_obj %}
     <div class="PagesNav">
         <ul class="PagesList">
             {% if page_obj.number > 3 %}
@@ -89,5 +90,6 @@
 
         </ul>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

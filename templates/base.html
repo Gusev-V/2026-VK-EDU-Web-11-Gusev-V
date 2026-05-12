@@ -26,9 +26,9 @@
 
                     <div class="collapse navbar-collapse" id="navbarContent">
 
-                        <form class="d-flex mx-auto my-2 my-lg-0">
-                            <input class="form-control me-2" type="search" placeholder="Search">
-                            <a href="{% url 'ask' %}" class="btn btn-success">ASK!</a>
+                        <form action="{% url 'search_redirect' %}" method="GET" class="d-flex mx-auto my-2 my-lg-0">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search by tag">
+                            <a href="{% url 'ask' %}" class="btn btn-success ms-2">ASK!</a>
                         </form>
 
                         <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
@@ -40,7 +40,7 @@
                                 {% endif %}
                                 <span>{{ user.profile.nickname|default:user.username }}</span>
                                 <a href="{% url 'setting' %}" class="btn btn-outline-secondary btn-sm">Settings</a>
-                                <a href="{% url 'login' %}" class="btn btn-outline-danger btn-sm">Log out</a>
+                                <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Log out</a>
                             {% else %}
                                 <a href="{% url 'registration' %}" class="btn btn-outline-secondary btn-sm">Sing up</a>
                                 <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-sm">Log In</a>

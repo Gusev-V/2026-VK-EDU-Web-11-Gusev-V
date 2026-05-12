@@ -6,4 +6,5 @@ urlpatterns = [
     path('ask/', views.ask, name='ask'),
     path('tag/<str:tag_name>/', views.tags, name='tags'),
     path('question/<int:question_id>/', views.question, name='question'),
+    path('search/', views.search_redirect, name='search_redirect'),
 ]

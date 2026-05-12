@@ -117,9 +117,27 @@
 
 <div class="black_line"></div>
 
-<textarea class="from_text_input" id="question_text_input" placeholder="Enter text here"></textarea>
+{% if user.is_authenticated %}
+    <form method="POST" action="{% url 'question' question.id %}">
+        {% csrf_token %}
 
-<button type="button" class="btn btn-outline-primary">AKS!</button>
+        {% if answer_form.errors %}
+            <div class="alert alert-danger">
+                {% for error in answer_form.content.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {{ answer_form.content }}
+        <button type="submit" class="btn btn-outline-primary mt-2">Answer!</button>
+
+    </form>
+{% else %}
+    <div class="text-center mb-4 p-3 bg-white border rounded">
+        <a href="{% url 'login' %}?next={% url 'question' question.id %}">Log in</a> to answer this question.
+    </div>
+{% endif %}
 <p> </p>
 
 {% endblock %}
