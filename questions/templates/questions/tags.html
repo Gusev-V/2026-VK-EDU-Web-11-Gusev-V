@@ -5,7 +5,7 @@
 {% block content %}
 <div class="content">
     <div class="content_header">
-        <h2>Tag: bender</h2>
+        <h2>Tag: {{ tag_name }}</h2>
     </div>
 
     {% for question in page_obj %}
@@ -13,27 +13,41 @@
         <div class="row align-items-start">
 
             <div class="col-auto d-flex flex-column align-items-center me-3">
-                <img src="{% static question.avatar %}" class="img-fluid mb-2" alt="User Icon"
-                     style="width:50px; height:50px;">
-                <input type="number" class="form-control form-control-sm text-center"
-                       value="{{ question.votes }}" min="0" max="10" step="1"
-                       style="width:60px;">
+                {% if question.author.profile.avatar %}
+                    <img src="{{ question.author.profile.avatar.url }}" class="img-fluid mb-2 rounded-circle"
+                         alt="User Avatar" style="width:50px; height:50px;">
+                {% else %}
+                    <img src="{% static 'img/user-icon.svg' %}" class="img-fluid mb-2"
+                         alt="User Icon" style="width:50px; height:50px;">
+                {% endif %}
+                <div class="text-center">
+                    {% if user.is_authenticated %}
+                        <button class="btn btn-sm btn-outline-success border-0 p-0 mb-1 question-like-btn
+                                            {% if question.id in liked_questions %}liked btn-success{% endif %}"
+                                data-question-id="{{ question.id }}">👍</button>
+                    {% else %}
+                        <button class="btn btn-sm btn-outline-secondary border-0 p-0 mb-1" disabled
+                                title="Log in to like">👍</button>
+                    {% endif %}
+
+                    <span class="fw-bold d-block" id="question-likes-{{ question.id }}">{{  question.likes_count }}</span>
+                </div>
             </div>
 
             <div class="col">
                 <a href="{% url 'question' question.id %}" class="h5 d-block mb-2 text-decoration-none">
                     {{ question.title }}
                 </a>
-                <p class="mb-2">{{ question.text }}</p>
+                <p class="mb-2">{{ question.content }}</p>
 
                 <div class="d-flex flex-wrap align-items-center gap-2">
-                    <a href="#" class="btn btn-link p-0">answer ({{ question.answers_count }})</a>
+                    <a href="#" class="btn btn-link p-0">answer ({{ question.answers_cnt }})</a>
                     <span class="me-2">Tags:</span>
                     <ul class="list-inline mb-0">
-                        {% for tag in question.tags %}
-                        <li class="list-inline-item">
-                            <a href="{% url 'tags' tag %}" class="btn btn-link p-0">{{ tag }}</a>
-                        </li>
+                        {% for tag in question.tags.all %}
+                            <li class="list-inline-item">
+                                <a href="{% url 'tags' tag.name %}" class="btn btn-link p-0">{{ tag.name }}</a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -41,8 +55,13 @@
 
         </div>
     </article>
+    {% empty %}
+        <div class="text-center py-5">
+            <p class="text-muted">{{ empty_message }}</p>
+        </div>
     {% endfor %}
 
+    {% if page_obj %}
     <div class="PagesNav">
         <ul class="PagesList">
             {% if page_obj.number > 3 %}
@@ -84,5 +103,6 @@
 
         </ul>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
