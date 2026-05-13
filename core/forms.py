@@ -1,8 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Profile
+import os
 
 
 class LoginForm(AuthenticationForm):
@@ -114,6 +115,18 @@ class RegistrationForm(forms.ModelForm):
             raise ValidationError('Sorry, this email address already registered!')
         return email
 
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar')
+        if avatar:
+            if avatar.size > 5 * 1024 * 1024:
+                raise ValidationError('Image file too large ( > 5MB )')
+
+            ext = os.path.splitext(avatar.name)[1].lower()
+            valid_extensions = ['.jpg', '.jpeg', '.png', '.gif']
+            if ext not in valid_extensions:
+                raise ValidationError('Unsupported file extension. Allowed: jpg, jpeg, png, gif')
+        return avatar
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password'])
@@ -174,6 +187,30 @@ class ProfileForm(forms.ModelForm):
         if self.user:
             self.fields['username'].initial = self.user.username
             self.fields['email'].initial = self.user.email
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exclude(pk=self.user.pk).exists():
+            raise ValidationError('Sorry, this email address already registered!')
+        return email
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar')
+        if avatar:
+            if avatar.size > 5 * 1024 * 1024:
+                raise ValidationError('Image file too large ( > 5MB )')
+
+            ext = os.path.splitext(avatar.name)[1].lower()
+            valid_extensions = ['.jpg', '.jpeg', '.png', '.gif']
+            if ext not in valid_extensions:
+                raise ValidationError('Unsupported file extension. Allowed: jpg, jpeg, png, gif')
+        return avatar
+
+    def clean_nickname(self):
+        nickname = self.cleaned_data.get('nickname')
+        if Profile.objects.filter(nickname=nickname).exclude(user=self.user).exists():
+            raise ValidationError('This nickname is already taken!')
+        return nickname
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
