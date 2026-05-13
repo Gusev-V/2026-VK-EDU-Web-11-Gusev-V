@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from questions.models import Question, Answer, QuestionLike, Tag
 
 
 def paginate(objects_list, request, per_page=10):
@@ -18,21 +20,11 @@ def paginate(objects_list, request, per_page=10):
 
 
 def index(request):
-    questions = []
-    for i in range(100):
-        questions.append({
-            'id': i,
-            'title': f'How to build a moon park?_{i}',
-            'text': "Guys, I have trouble with a moon park. Can't find the black-jack...",
-            'votes': 5,
-            'answers_count': 50,
-            'tags': ['black-jack', 'bender'],
-            'avatar': f'img/user-icon.svg',
-        })
-
+    questions = Question.objects.get_hot_questions()
     page = paginate(questions, request, 5)
     context = {
         'page_obj': page,
+        'empty_message': 'No questions yet. Be the first to ask!',
     }
     return render(request, 'questions/index.html', context)
 
@@ -42,57 +34,42 @@ def ask(request):
 
 
 def tags(request, tag_name):
-    questions = []
-    for i in range(100):
-        questions.append({
-            'id': i,
-            'title': f'How to build a moon park?_{i}',
-            'text': "Guys, I have trouble with a moon park. Can't find the black-jack...",
-            'votes': 5,
-            'answers_count': 3,
-            'tags': ['black-jack', 'bender'],
-            'avatar': f'img/user-icon.svg',
-        })
+    tag_name = tag_name.lower()
+    questions = Question.objects.get_questions_by_tag(tag_name)
 
-    page = paginate(questions, request, per_page=5)
+    if not questions.exists():
+        get_object_or_404(Tag, name=tag_name)
+
+    page = paginate(questions, request, per_page=20)
 
     context = {
         'page_obj': page,
         'tag_name': tag_name,
+        'empty_message': f'No questions found for tag "{tag_name}".',
     }
     return render(request, 'questions/tags.html', context)
 
 
 def question(request, question_id):
+    question_obj = get_object_or_404(
+        Question.objects.select_related('author__profile').prefetch_related('tags'),
+        pk=question_id
+    )
 
-    question_data = {
-        'title': 'How to build a moon park?',
-        'text': "Lorem ipsum - dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt"
-                " ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci "
-                "tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-        'votes': 5,
-        'answers_count': 3,
-        'tags': ['black-jack', 'bender'],
-        'avatar': f'img/user-icon.svg',
-        'id': question_id
-    }
+    answers = Answer.objects.filter(question=question_obj).select_related(
+        'author__profile'
+    ).annotate(
+        ans_likes=Count('answer_likes', distinct=True)
+    ).order_by('-is_correct', '-ans_likes', '-created_at')
 
-    answers = []
-    for i in range(50):
-        answers.append({
-            'title': f'How to build a moon park?_{i}',
-            'text': "First of all I would like to thank you for the invitation to participate in such a... Russia is"
-                    " the huge territory which in many respects needs to be render habitable.",
-            'votes': 5,
-            'is_correct': i % 2,
-            'avatar': 'img/user-icon.svg',
-        })
+    page = paginate(answers, request, per_page=10)
 
-    page = paginate(answers, request, per_page=3)
+    question_likes = QuestionLike.objects.filter(question=question_obj).count()
 
     context = {
+        'question': question_obj,
+        'question_likes': question_likes,
         'page_obj': page,
-        'question': question_data,
+        'empty_message': 'No answers yet. Be the first to answer this question!',
     }
-
     return render(request, 'questions/question.html', context)

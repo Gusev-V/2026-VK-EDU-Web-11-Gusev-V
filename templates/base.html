@@ -32,9 +32,13 @@
                         </form>
 
                         <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
-                            {% if user.icon %}
-                                <img src="{% static user.icon %}" width="30">
-                                <span>{{ user.username }}</span>
+                            {% if user.is_authenticated %}
+                                {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar.url }}" width="30" height="30" class="rounded-circle">
+                                {% else %}
+                                    <img src="{% static 'img/user-icon.svg' %}" width="30">
+                                {% endif %}
+                                <span>{{ user.profile.nickname|default:user.username }}</span>
                                 <a href="{% url 'setting' %}" class="btn btn-outline-secondary btn-sm">Settings</a>
                                 <a href="{% url 'login' %}" class="btn btn-outline-danger btn-sm">Log out</a>
                             {% else %}
@@ -65,7 +69,13 @@
                         <h5>Popular Tags</h5>
                         <ul class="list-unstyled d-flex flex-wrap gap-2">
                             {% for tag in popular_tags %}
-                                <li><a href="{% url 'tags' tag %}" id="{{ tag }}">{{ tag }}</a></li>
+                                <li>
+                                    <a href="{% url 'tags' tag.name %}" class="tag-link">
+                                        {{ tag.name }}
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li>No tags yet</li>
                             {% endfor %}
                         </ul>
                     </section>
@@ -74,7 +84,11 @@
                         <h5>Best Members</h5>
                         <ul class="list-unstyled">
                             {% for member in best_members %}
-                                <li><a href="#">{{ member }}</a></li>
+                                <li class="mb-2">
+                                    <span>{{ member.profile.nickname|default:member.username }}</span>
+                                </li>
+                            {% empty %}
+                                <li>No active members yet</li>
                             {% endfor %}
                         </ul>
                     </section>
