@@ -15,7 +15,7 @@ import os
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ASK_ME.urls'
+ROOT_URLCONF = 'application.ASK_ME.urls'
 
 TEMPLATES = [
     {
@@ -65,15 +65,15 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                'ASK_ME.context_processors.sidebar',
-                'ASK_ME.context_processors.current_user_info',
+                'application.ASK_ME.context_processors.sidebar',
+                'application.ASK_ME.context_processors.current_user_info',
 
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'ASK_ME.wsgi.application'
+WSGI_APPLICATION = 'application.ASK_ME.wsgi.application'
 
 
 # Database

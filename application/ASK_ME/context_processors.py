@@ -21,21 +21,6 @@ def sidebar(request):
 
 
 def current_user_info(request):
-    # username = 'Dr. Pepper'
-    # user_icon = 'img/user-icon.svg'
-    # user_email = 'dr.pepper-+@@@mail.ru'
-    # login = 'dr_pepper'
-    #
-    # excluded_urls = ['login', 'registration']
-    #
-    # if request.resolver_match and request.resolver_match.url_name in excluded_urls:
-    #     return {}
 
     return {
-        # 'current_user_info': {
-        #     'username': username,
-        #     'icon': user_icon,
-        #     'login': login,
-        #     'email': user_email,
-        # }
     }
