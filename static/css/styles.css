@@ -80,16 +80,29 @@ form input {
     font-size: 14px;
 }
 
-.from_text_input {
+.form_text_input {
     width: 100%;
     height: 300px;
     padding: 8px 16px;
     font-size: 14px;
-    border: 1px solid #e9e2e6;
+    border: 2px solid #e9e2e6;
     border-radius: 6px;
     resize: none;
     overflow-wrap: break-word;
 }
+
+.form_ans_text_input {
+    width: 100%;
+    grid-column: 1 / -1;
+    height: 300px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 2px solid #e9e2e6;
+    border-radius: 6px;
+    resize: none;
+    overflow-wrap: break-word;
+}
+
 
 form img{
     border:#000000;
@@ -112,6 +125,19 @@ form img{
 
 footer {
     margin-top: 50px;
+}
+
+.likes-block {
+    min-width: 60px;
+}
+
+.likes-block button:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+}
+
+.likes-block button:active {
+    transform: scale(0.9);
 }
 
 @media (max-width: 768px) {   

@@ -8,19 +8,35 @@
     <h2>New Question</h2>
 </div>
 
-<p class="error">The title can't be empty!</p>
+{% if form.errors %}
+    <div class="alert alert-danger">
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}
 
-<form name="new_question">
-    <label>Title</label>
-    <input class="from_input" id="question_title_input" type="text" placeholder="Enter title here">
+{% if user.is_authenticated %}
+     <form method="POST" name="new_question" action="{% url 'ask' %}">
+         {% csrf_token %}
 
-    <label>Text</label>
-    <textarea class="from_text_input" id="question_text_input" placeholder="Enter text here"></textarea>
+         <label class="form-label">{{ form.title.label }}</label>
+         {{ form.title }}
 
-    <label>Tags</label>
-    <input class="from_input" id="question_tags_input" type="text" placeholder="Enter tags here">
+         <label class="form-label">{{ form.content.label }}</label>
+         {{ form.content }}
 
-    <div></div>
-    <button type="button" class="btn btn-outline-primary">ASK!</button>
-</form>
+         <label class="form-label">{{ form.tags.label }}</label>
+         {{ form.tags }}
+
+        <div></div>
+        <button type="submit" class="btn btn-outline-primary">ASK!</button>
+    </form>
+{% else %}
+    <div class="text-center mb-4 p-3 bg-white border rounded">
+        <a href="{% url 'login' %}?next={% url 'ask' %}">Log in</a> to ask the question.
+    </div>
+{% endif %}
 {% endblock %}

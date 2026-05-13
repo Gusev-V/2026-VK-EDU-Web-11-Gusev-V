@@ -7,31 +7,38 @@
     <h2>Registration</h2>
 </div>
 
-<p class="error">Sorry, this email address allready registrated!</p>
+{% if form.errors %}
+    <div class="alert alert-danger">
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}
 
-<form name="registration">
-    <label>Login</label>
-    <input class="form_input" id="registration_input" type="text" placeholder="Enter your login here">
+<form method="POST" name="registration" >
+    {% csrf_token %}
 
-    <label>Email</label>
-    <input class="form_input" id="email_input" name="email" type="email" autocomplete="email"
-           placeholder="Enter your email here">
+    <label class="form-label">{{ form.username.label }}</label>
+    {{ form.username }}
 
-    <label>Nickname</label>
-    <input class="form_input" id="nickname_input" type="text" placeholder="Enter your NicknName">
+    <label class="form-label">{{ form.email.label }}</label>
+    {{ form.email }}
 
-    <label>Password</label>
-    <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password"
-           placeholder="Enter your password here">
+    <label class="form-label">{{ form.nickname.label }}</label>
+    {{ form.nickname }}
 
-    <label>Repeat Password</label>
-    <input class="form_input" id="password_input" type="password" name="password" autocomplete="current-password"
-           placeholder="Repeat your password here">
+    <label class="form-label">{{ form.password.label }}</label>
+    {{ form.password }}
 
-    <label>Upload avatar</label>
-    <input class="form_input" id="avatar" type="file" accept="image/png, image/jpeg, image/svg">
+    <label class="form-label">{{ form.password_confirm.label }}</label>
+    {{ form.password_confirm }}
+
+    <label class="form-label">{{ form.avatar.label }}</label>
+    {{ form.avatar }}
 
     <div></div>
-    <button type="button" class="btn btn-outline-primary">Registrater!</button>
+    <button type="submit" class="btn btn-outline-primary">Register!</button>
 </form>
 {% endblock %}
